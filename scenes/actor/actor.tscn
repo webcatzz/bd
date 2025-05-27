@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://6qcfn1jodkcj"]
+
+[ext_resource type="Script" uid="uid://cqpmpdwcgm71r" path="res://scenes/actor/actor.gd" id="1_x4c43"]
+[ext_resource type="Script" uid="uid://doejau686n1jx" path="res://scenes/actor/split_sprite.gd" id="2_7vwln"]
+[ext_resource type="Script" uid="uid://cn2u8sno0xn7k" path="res://scenes/actor/action_queue.gd" id="4_w6j74"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_35erh"]
+radius = 8.0
+
+[node name="Actor" type="Area2D"]
+script = ExtResource("1_x4c43")
+metadata/_custom_type_script = "uid://cqpmpdwcgm71r"
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_35erh")
+
+[node name="SplitSprite" type="Node2D" parent="."]
+script = ExtResource("2_7vwln")
+offset = Vector2(0, -12)
+parts = 4
+metadata/_custom_type_script = "uid://doejau686n1jx"
+
+[node name="Path" type="Node2D" parent="."]
+top_level = true
+script = ExtResource("4_w6j74")
+metadata/_custom_type_script = "uid://cn2u8sno0xn7k"

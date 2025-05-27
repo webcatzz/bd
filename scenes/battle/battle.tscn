@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://8n8jdffujf87"]
+
+[ext_resource type="Script" uid="uid://o4bcev7imiad" path="res://scenes/battle/battle.gd" id="1_dn72j"]
+[ext_resource type="Script" uid="uid://c42cplvlgun4i" path="res://scenes/battle/ui.gd" id="2_ffvsa"]
+
+[node name="Battle" type="Node"]
+script = ExtResource("1_dn72j")
+metadata/_custom_type_script = "uid://o4bcev7imiad"
+
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("order")]
+scale = Vector2(3, 3)
+transform = Transform2D(3, 0, 0, 3, 0, 0)
+script = ExtResource("2_ffvsa")
+order = NodePath("Control/Margins/VBoxContainer/Order")
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1333.33
+offset_bottom = -800.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Margins" type="MarginContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/Margins"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="UI/Control/Margins/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 16
+text = "ORDER"
+
+[node name="Order" type="Label" parent="UI/Control/Margins/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 32
+text = "actor 1
+actor 2
+> ana
+actor 3"
+
+[connection signal="continued" from="." to="UI" method="_on_battle_continued"]
+[connection signal="ended" from="." to="UI" method="hide"]
+[connection signal="started" from="." to="UI" method="show"]

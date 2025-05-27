@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctewk4f73i4jo"]
+
+[ext_resource type="FontFile" uid="uid://cnd0w8b7vq2lp" path="res://assets/fonts/contrailone.ttf" id="1_ieiqf"]
+
+[node name="Control" type="Node"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 174.0
+offset_top = 208.0
+offset_right = 385.0
+offset_bottom = 281.0
+
+[node name="HFlowContainer" type="HFlowContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HFlowContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ieiqf")
+theme_override_font_sizes/font_size = 16
+text = "One Weights"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HFlowContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "in Latin Script"

@@ -1,0 +1,24 @@
+# intro
+SEAWORN ROOM: Salt swills in the thick air of the old room. The cloying stench of the ocean clogs the senses so completely it seems nearly impossible to move.
+- Where am I?
+	SEAWORN ROOM: Whirling waves swelling, falling apart, spitting, clawing, crashing into steep rocks; shifting, undulating, utterly obscure. Somewhere, ocean spray catches on a window pane. A few flecks land on skin.
+	INMOST POINT: Your gut drops.
+	SEAWORN ROOM: The decaying walls seem insufficient to guard you from the cold, but there is a warmth here nonetheless.
+SCUTTLING JUNEBUG: A gentle staccato pulls you out of stupor. A glimmer of irridescence vanishes in the darkness.
+CERTAINTY: Precisely one hundred and two kilometers directly above your head: a shooting star vanishes in the night sky.
+=> main
+
+# main
+SEAWORN ROOM: Dim light pries through warped window-glass. You are anchored in an ocean of its own sort: books, compact discs, records, paper scraps, computer parts, and other paraphernalia bury every inch of the room. It is a well-cared for collection.
+- Inspect the literature.
+	SEAWORN ROOM: Your sifting fingers hit upon the hard spine of a hefty paperback. Its jacket is creased and faded.
+	SEDIMENT: All at once, you feel the ghosts of a dozen hands resting where yours rest now.
+	SEAWORN ROOM: A labyrinthine design sprawls over the cover. The title reads: "House of Leaves".
+- Inspect the notebooks.
+	SEAWORM ROOM: Incomprehensible designs cover the pages you unearth. Something catches your eye.
+	- Shifting clouds. A bird in flight. A stray moon.
+		cat comic
+	- Decaying flesh. The flutter of insects. Concentric doors.
+		SEAWORN ROOM: These appear to be plans for a digital game. Several pages make up a striking illustration of a house on fire.
+- Inspect the records.
+=> main

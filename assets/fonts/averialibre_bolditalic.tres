@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://crr0xf835jluj"]
+
+[ext_resource type="FontFile" uid="uid://cqnilmpewxfnp" path="res://assets/fonts/averialibre_bolditalic.ttf" id="1_ujf8y"]
+
+[resource]
+base_font = ExtResource("1_ujf8y")
+spacing_top = -16
