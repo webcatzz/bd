@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ws7diq42x041" path="res://scenes/tile_condition.gd" id="1_klcqf"]
 
 [node name="TileCondition" type="Area2D"]
-monitorable = false
+collision_layer = 2
 script = ExtResource("1_klcqf")
 
 [node name="Shape" type="CollisionPolygon2D" parent="."]
