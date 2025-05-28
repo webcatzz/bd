@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://bj4wflu25mok0"]
+[gd_scene load_steps=77 format=3 uid="uid://bj4wflu25mok0"]
 
 [ext_resource type="Script" uid="uid://rtj7ak6mwtr2" path="res://scenes/grid/grid.gd" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://6qcfn1jodkcj" path="res://scenes/actor/actor.tscn" id="1_o5qli"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://8n8jdffujf87" path="res://scenes/battle/battle.tscn" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://ck54slwe0x8gf" path="res://scenes/camera.gd" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://dnx535csuy1dv" path="res://scenes/actor/player.gd" id="5_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://dn535ip02vhe3" path="res://scenes/tile_condition.tscn" id="8_tipki"]
+[ext_resource type="Texture2D" uid="uid://b0bxis1le3ghw" path="res://icon.svg" id="9_85g3d"]
+[ext_resource type="Script" uid="uid://drrhlpyj8d7ul" path="res://scenes/actor/condition.gd" id="9_choun"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o6xl0"]
 texture = ExtResource("2_tefeu")
@@ -396,6 +399,13 @@ coords = Vector2i(-1, 7)
 source_id = 0
 tile_id = Vector2i(0, 0)
 
+[sub_resource type="Resource" id="Resource_y57op"]
+script = ExtResource("9_choun")
+id = &"doom"
+time = 2
+strength = 1
+metadata/_custom_type_script = "uid://drrhlpyj8d7ul"
+
 [node name="Main" type="Node2D"]
 
 [node name="Grid" type="Node2D" parent="."]
@@ -425,3 +435,10 @@ actors = [NodePath("../Ana"), NodePath("../Actor1"), NodePath("../Actor2")]
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 script = ExtResource("4_jyhfs")
+
+[node name="TileCondition" parent="." instance=ExtResource("8_tipki")]
+condition = SubResource("Resource_y57op")
+
+[node name="Sprite2D" type="Sprite2D" parent="TileCondition"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("9_85g3d")

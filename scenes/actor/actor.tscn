@@ -24,3 +24,9 @@ metadata/_custom_type_script = "uid://doejau686n1jx"
 top_level = true
 script = ExtResource("4_w6j74")
 metadata/_custom_type_script = "uid://cn2u8sno0xn7k"
+
+[node name="ConditionIcons" type="VBoxContainer" parent="."]
+offset_left = 10.0
+offset_top = -28.0
+offset_right = 18.0
+offset_bottom = -20.0

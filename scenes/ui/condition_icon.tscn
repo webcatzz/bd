@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://chj32g5yfw5wb"]
+
+[ext_resource type="Texture2D" uid="uid://dbol1ftoxm60p" path="res://assets/modifiers/doom.png" id="1_2wh3p"]
+[ext_resource type="Script" uid="uid://brh5bfdd16rlt" path="res://scenes/ui/condition_icon.gd" id="1_fk6kr"]
+[ext_resource type="FontVariation" uid="uid://d0twb70raork8" path="res://assets/fonts/small.tres" id="2_xobf5"]
+
+[node name="ConditionIcon" type="Control"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_fk6kr")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("1_2wh3p")
+
+[node name="Time" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -4.0
+offset_right = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_xobf5")
+text = "×4"

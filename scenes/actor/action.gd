@@ -19,16 +19,14 @@ var is_possible: bool = true : set = _set_is_possible
 # drawing
 
 func _draw() -> void:
-	self_modulate = Palette.WHITE
 	_draw_dots()
-	_draw_sprite(Vector2i(1, 0), end)
+	
+	if is_possible:
+		_draw_sprite(Vector2i(1, 0), end)
 	
 	if type == Type.HIT:
 		_draw_sprite(Vector2i(2, 0), target)
 		self_modulate = Palette.RED
-	
-	#_draw_sprite(Vector2i(1 if type == Type.MOVE else 2 if type == Type.HIT else 0, 0), to)
-	#self_modulate = Color(Palette.WHITE, 0.5)
 
 
 func _draw_sprite(coords: Vector2i, point: Vector2, scale: Vector2 = Vector2.ONE) -> void:
@@ -54,7 +52,7 @@ func _draw_dots() -> void:
 # shake
 
 func set_target_shaking(value: bool) -> void:
-	var occupant: Actor = Game.battle.grid.at(target)
+	var occupant := Game.battle.grid.at(target) as Actor
 	if occupant:
 		occupant.sprite.shake() if value else occupant.sprite.stop()
 
@@ -73,8 +71,7 @@ func _set_end(value: Vector2) -> void:
 
 func _set_type(value: Type) -> void:
 	type = value
-	#if type != Type.HIT:
-		#set_target_shaking(false)
+	set_target_shaking(type == Type.HIT)
 	queue_redraw()
 
 
@@ -93,4 +90,11 @@ func _set_item(value: Item) -> void:
 
 func _set_is_possible(value: bool) -> void:
 	is_possible = value
+	self_modulate.a = 1.0 if is_possible else 0.5
 	queue_redraw()
+
+
+# init
+
+func _ready() -> void:
+	self_modulate = Palette.WHITE

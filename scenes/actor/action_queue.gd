@@ -25,3 +25,8 @@ func at(idx: int) -> Action:
 
 func size() -> int:
 	return actions.size()
+
+
+func clear() -> void:
+	while size():
+		pop().queue_free()

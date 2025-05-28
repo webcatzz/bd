@@ -24,8 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		end_turn()
 	elif event.is_action_pressed("right_click"):
-		while path.size():
-			path.pop().queue_free()
+		path.clear()
 		add_hover_action()
 	elif hover_action:
 		if event is InputEventMouseMotion:
@@ -55,9 +54,11 @@ func update_hover_action() -> void:
 		Action.Type.HIT:
 			hover_action.target = cursor_point
 			hover_action.end = cursor_point + Grid.unit(hover_action.start - cursor_point)
+	hover_action.is_possible = can_stand(hover_action.end)
 
 
 func commit_hover_action() -> void:
+	if not hover_action.is_possible: return
 	hover_action.modulate.a = 1.0
 	hover_action = null
 	if path.size() < path.max_size:
@@ -74,4 +75,5 @@ func _set_action_mode(value: Action.Type) -> void:
 # init
 
 func _ready() -> void:
+	Game.player = self
 	set_process_unhandled_input(false)
