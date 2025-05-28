@@ -20,13 +20,10 @@ var is_possible: bool = true : set = _set_is_possible
 
 func _draw() -> void:
 	_draw_dots()
-	
 	if is_possible:
 		_draw_sprite(Vector2i(1, 0), end)
-	
 	if type == Type.HIT:
 		_draw_sprite(Vector2i(2, 0), target)
-		self_modulate = Palette.RED
 
 
 func _draw_sprite(coords: Vector2i, point: Vector2, scale: Vector2 = Vector2.ONE) -> void:
@@ -40,13 +37,19 @@ func _draw_sprite(coords: Vector2i, point: Vector2, scale: Vector2 = Vector2.ONE
 func _draw_dots() -> void:
 	var length: float = (end - start).length()
 	var count: int = length / DOT_SEPARATION
-	var separation: float
-	if count == 1:
-		separation = length * 0.5
-	else:
-		separation = DOT_SEPARATION - (DOT_SEPARATION - fmod(length, DOT_SEPARATION)) / count
-	for d: int in count:
-		_draw_sprite(Vector2i.ZERO, start.move_toward(end, separation * (d + 1)))
+	var separation: float = length * 0.5 if count == 1 else DOT_SEPARATION - (DOT_SEPARATION - fmod(length, DOT_SEPARATION)) / count
+	for i: int in count:
+		_draw_sprite(Vector2i.ZERO, start.move_toward(end, separation * (i + 1)))
+
+
+# color
+
+func set_color(color: Color) -> void:
+	self_modulate = Color(color, self_modulate.a)
+
+
+func set_alpha(value: float) -> void:
+	self_modulate.a = value
 
 
 # shake
@@ -71,7 +74,8 @@ func _set_end(value: Vector2) -> void:
 
 func _set_type(value: Type) -> void:
 	type = value
-	set_target_shaking(type == Type.HIT)
+	set_color(Palette.RED if type == Type.HIT else Palette.WHITE)
+	set_target_shaking(type == Type.HIT and is_possible)
 	queue_redraw()
 
 
@@ -90,11 +94,6 @@ func _set_item(value: Item) -> void:
 
 func _set_is_possible(value: bool) -> void:
 	is_possible = value
-	self_modulate.a = 1.0 if is_possible else 0.5
+	set_alpha(1.0 if is_possible else 0.5)
+	set_target_shaking(type == Type.HIT and is_possible)
 	queue_redraw()
-
-
-# init
-
-func _ready() -> void:
-	self_modulate = Palette.WHITE
