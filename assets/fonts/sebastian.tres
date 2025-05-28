@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://qujbrsk0vt1i"]
+
+[ext_resource type="FontFile" uid="uid://bsmcwgsxkeycs" path="res://assets/fonts/sebastian.ttf" id="1_2rxtw"]
+
+[resource]
+base_font = ExtResource("1_2rxtw")
+spacing_top = -4
