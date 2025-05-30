@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Game="*res://scenes/autoloads/game.tscn"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+
 [display]
 
 window/size/viewport_width=2000
@@ -26,7 +30,7 @@ window/size/viewport_height=1200
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/grid_editor/plugin.cfg")
+enabled=PackedStringArray("res://addons/grid/plugin.cfg")
 
 [gui]
 

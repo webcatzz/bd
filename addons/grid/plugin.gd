@@ -1,24 +1,18 @@
 @tool
 extends EditorPlugin
 
-var editor: Control = load("res://addons/grid_editor/grid_editor.tscn").instantiate()
-var tab: Button = add_control_to_bottom_panel(editor, "Grid")
+var editor: Control = load("res://addons/grid/editor.tscn").instantiate()
+var tab := add_control_to_bottom_panel(editor, "Grid")
 
-
-
-# handling
-
-func _handles(object: Object) -> bool:
-	return object is Grid
-
-
-
-# editor
 
 func _enter_tree() -> void:
 	editor.history = get_undo_redo()
-	editor.canvas_redraw_requested.connect(update_overlays)
+	editor.redraw_requested.connect(update_overlays)
 	tab.hide()
+
+
+func _handles(object: Object) -> bool:
+	return object is Grid
 
 
 func _edit(object: Object) -> void:
@@ -34,7 +28,6 @@ func _disable_plugin() -> void:
 	remove_control_from_bottom_panel(editor)
 	editor.queue_free()
 	editor = null
-
 
 
 # forwarding
