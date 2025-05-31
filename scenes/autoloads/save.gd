@@ -2,6 +2,8 @@ extends Node
 
 var data: Dictionary = {}
 
+var player_name := "June" # temp test for dialogue
+
 
 func read() -> void:
 	data = bytes_to_var(FileAccess.get_file_as_bytes("user://save.cfg"))

@@ -1,24 +1,85 @@
 # intro
-SEAWORN ROOM: Salt swills in the thick air of the old room. The cloying stench of the ocean clogs the senses so completely it seems nearly impossible to move.
-- Where am I?
-	SEAWORN ROOM: Whirling waves swelling, falling apart, spitting, clawing, crashing into steep rocks; shifting, undulating, utterly obscure. Somewhere, ocean spray catches on a window pane. A few flecks land on skin.
-	INMOST POINT: Your gut drops.
-	SEAWORN ROOM: The decaying walls seem insufficient to guard you from the cold, but there is a warmth here nonetheless.
-SCUTTLING JUNEBUG: A gentle staccato pulls you out of stupor. A glimmer of irridescence vanishes in the darkness.
-CERTAINTY: Precisely one hundred and two kilometers directly above your head: a shooting star vanishes in the night sky.
+
+as SEAWORN ROOM
+Salt swills in the thick air of the old room. The cloying stench of the ocean clogs the senses so completely it seems nearly impossible to move.
+
+> Where am I?
+
+	as SEAWORN ROOM
+	Whirling waves swelling, falling apart, spitting, clawing, crashing into steep rocks; shifting, undulating, utterly obscure. Somewhere, ocean spray catches on a window pane. A few flecks land on skin.
+
+	as INMOST POINT
+	Your gut drops.
+
+	as SEAWORN ROOM
+	The decaying walls seem insufficient to guard you from the cold, but there is a warmth here nonetheless.
+
+> Enough of this. Show me a play instead.
+
+	=> play
+
+as SCUTTLING JUNEBUG
+A gentle staccato pulls you out of stupor. A glimmer of irridescence vanishes in the darkness.
+
+as CERTAINTY
+Precisely one hundred and two kilometers directly above your head: a shooting star vanishes in the night sky.
+
 => main
 
+---
+
+# play
+
+as COWARD
+Could you stop that?!
+do fifer_put_pistol_away
+
+as COWARD
+They should be here. It’s the day of our duel. Why wouldn't they be here? Why wouldn't he be here?
+
+as FIFER
+I have no idea.
+
+as COWARD
+do coward_grovel
+This is horrible, oh, why- how could this happen to me?! I don’t want to shoot him... I don't want to die...
+
+as FIFER
+...Some time ago, I read a book about a Japanese warrior... a samurai, who would often turn up late to his own duels.
+do coward_sit_down_next_to_fifer
+The primary reason he made use of this strategy was that it forced his opponent to wait and contemplate their own death.
+
+as COWARD
+do coward_hesitates
+And that is supposed to comfort me?!
+
+as FIFER
+do fifer_roll_eyes
+No, I just thought it was interesting.
+
+as COWARD
+do coward_shoot_fifer
+Bitch
+
+=> intro
+
+---
+
 # main
-SEAWORN ROOM: Dim light pries through warped window-glass. You are anchored in an ocean of its own sort: books, compact discs, records, paper scraps, computer parts, and other paraphernalia bury every inch of the room. It is a well-cared for collection.
-- Inspect the literature.
-	SEAWORN ROOM: Your sifting fingers hit upon the hard spine of a hefty paperback. Its jacket is creased and faded.
-	SEDIMENT: All at once, you feel the ghosts of a dozen hands resting where yours rest now.
-	SEAWORN ROOM: A labyrinthine design sprawls over the cover. The title reads: "House of Leaves".
-- Inspect the notebooks.
-	SEAWORM ROOM: Incomprehensible designs cover the pages you unearth. Something catches your eye.
-	- Shifting clouds. A bird in flight. A stray moon.
-		cat comic
-	- Decaying flesh. The flutter of insects. Concentric doors.
-		SEAWORN ROOM: These appear to be plans for a digital game. Several pages make up a striking illustration of a house on fire.
-- Inspect the records.
-=> main
+
+as SEAWORN ROOM
+Dim light pries through warped window-glass. You are anchored in an ocean of its own sort: books, compact discs, records, paper scraps, computer parts, and other paraphernalia bury every inch of the room. It is a well-cared for collection.
+
+if player_name == "June"
+
+	You feel at home.
+
+x else
+
+x 	You feel yourself a stranger here.
+
+> Enough of this. Show me a play instead.
+
+	=> play
+
+---

@@ -17,10 +17,13 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Save="*res://scenes/autoloads/save.gd"
 Game="*res://scenes/autoloads/game.tscn"
 
 [debug]
 
+gdscript/warnings/shadowed_variable=0
+gdscript/warnings/shadowed_variable_base_class=0
 gdscript/warnings/untyped_declaration=1
 
 [display]
