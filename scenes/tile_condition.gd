@@ -3,6 +3,7 @@ extends Area2D
 @export var condition: Condition
 
 
-func _on_area_entered(area: Area2D) -> void:
-	if area is Actor:
-		area.add_condition(condition)
+func _on_body_entered(body: Node2D) -> void:
+	print(body)
+	if body is Actor:
+		body.add_condition(condition)

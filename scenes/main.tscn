@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://bj4wflu25mok0"]
+[gd_scene load_steps=92 format=3 uid="uid://bj4wflu25mok0"]
 
 [ext_resource type="Script" uid="uid://rtj7ak6mwtr2" path="res://addons/grid/grid.gd" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://6qcfn1jodkcj" path="res://scenes/actor/actor.tscn" id="1_o5qli"]
@@ -8,8 +8,8 @@
 [ext_resource type="Script" uid="uid://ck54slwe0x8gf" path="res://scenes/camera.gd" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://dnx535csuy1dv" path="res://scenes/actor/player.gd" id="5_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dn535ip02vhe3" path="res://scenes/tile_condition.tscn" id="8_tipki"]
-[ext_resource type="Texture2D" uid="uid://b0bxis1le3ghw" path="res://icon.svg" id="9_85g3d"]
-[ext_resource type="Script" uid="uid://drrhlpyj8d7ul" path="res://scenes/actor/condition.gd" id="9_choun"]
+[ext_resource type="Script" uid="uid://drrhlpyj8d7ul" path="res://scenes/actor/condition.gd" id="9_85g3d"]
+[ext_resource type="Texture2D" uid="uid://b0bxis1le3ghw" path="res://icon.svg" id="10_choun"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o6xl0"]
 texture = ExtResource("2_tefeu")
@@ -18,9 +18,11 @@ texture_region_size = Vector2i(24, 21)
 0:0/0/texture_origin = Vector2i(0, -2)
 1:0/0 = 0
 1:0/0/texture_origin = Vector2i(0, -2)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 1.5, -2, -9, 12, -1.5, 2, 8.5)
 
 [sub_resource type="TileSet" id="TileSet_tipki"]
 tile_size = Vector2i(24, 21)
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_o6xl0")
 
 [sub_resource type="Resource" id="Resource_a82wo"]
@@ -149,6 +151,30 @@ coords = Vector2i(-1, 1)
 source_id = 0
 tile_id = Vector2i(0, 0)
 
+[sub_resource type="Resource" id="Resource_choun"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(9, 2)
+source_id = 0
+tile_id = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_ya4ey"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(8, 2)
+source_id = 0
+tile_id = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_eb6dy"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(7, 2)
+source_id = 0
+tile_id = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_trceg"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(6, 2)
+source_id = 0
+tile_id = Vector2i(1, 0)
+
 [sub_resource type="Resource" id="Resource_engxj"]
 script = ExtResource("2_tbgi4")
 coords = Vector2i(5, 2)
@@ -191,6 +217,30 @@ coords = Vector2i(-1, 2)
 source_id = 0
 tile_id = Vector2i(0, 0)
 
+[sub_resource type="Resource" id="Resource_a8y0u"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(9, 3)
+source_id = 0
+tile_id = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_jkv2x"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(8, 3)
+source_id = 0
+tile_id = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_jbj1t"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(7, 3)
+source_id = 0
+tile_id = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_muem4"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(6, 3)
+source_id = 0
+tile_id = Vector2i(1, 0)
+
 [sub_resource type="Resource" id="Resource_eh25q"]
 script = ExtResource("2_tbgi4")
 coords = Vector2i(5, 3)
@@ -232,6 +282,30 @@ script = ExtResource("2_tbgi4")
 coords = Vector2i(-1, 3)
 source_id = 0
 tile_id = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_dp3eg"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(9, 4)
+source_id = 0
+tile_id = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_0ld40"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(8, 4)
+source_id = 0
+tile_id = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_gqmmt"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(7, 4)
+source_id = 0
+tile_id = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_yc10j"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(6, 4)
+source_id = 0
+tile_id = Vector2i(1, 0)
 
 [sub_resource type="Resource" id="Resource_683hg"]
 script = ExtResource("2_tbgi4")
@@ -419,8 +493,8 @@ coords = Vector2i(-31, 33)
 source_id = 0
 tile_id = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_y57op"]
-script = ExtResource("9_choun")
+[sub_resource type="Resource" id="Resource_jscy8"]
+script = ExtResource("9_85g3d")
 id = &"doom"
 time = 2
 strength = 1
@@ -432,7 +506,7 @@ metadata/_custom_type_script = "uid://drrhlpyj8d7ul"
 y_sort_enabled = true
 script = ExtResource("1_jyhfs")
 tile_set = SubResource("TileSet_tipki")
-tiles = Array[ExtResource("2_tbgi4")]([SubResource("Resource_a82wo"), SubResource("Resource_gdvew"), SubResource("Resource_kjtvk"), SubResource("Resource_xrs0c"), SubResource("Resource_xljpf"), SubResource("Resource_j4bwh"), SubResource("Resource_ksmap"), SubResource("Resource_ygd8o"), SubResource("Resource_2s0kr"), SubResource("Resource_xaipn"), SubResource("Resource_ndrjj"), SubResource("Resource_ih3m7"), SubResource("Resource_11yus"), SubResource("Resource_b6ruc"), SubResource("Resource_r4ag1"), SubResource("Resource_4ue30"), SubResource("Resource_gr8w0"), SubResource("Resource_673bd"), SubResource("Resource_akjxb"), SubResource("Resource_73205"), SubResource("Resource_xmrkg"), SubResource("Resource_engxj"), SubResource("Resource_raiwf"), SubResource("Resource_roort"), SubResource("Resource_gm02q"), SubResource("Resource_07pt3"), SubResource("Resource_37xlc"), SubResource("Resource_83607"), SubResource("Resource_eh25q"), SubResource("Resource_joh2r"), SubResource("Resource_yton5"), SubResource("Resource_4ahvx"), SubResource("Resource_2cr71"), SubResource("Resource_1hbcg"), SubResource("Resource_m4o51"), SubResource("Resource_683hg"), SubResource("Resource_ow8of"), SubResource("Resource_hj4tt"), SubResource("Resource_ruytr"), SubResource("Resource_wi1le"), SubResource("Resource_o7pr5"), SubResource("Resource_hyj2l"), SubResource("Resource_knlx5"), SubResource("Resource_pes4l"), SubResource("Resource_s5e0g"), SubResource("Resource_uya8e"), SubResource("Resource_2tiby"), SubResource("Resource_1m7le"), SubResource("Resource_d7502"), SubResource("Resource_jgau6"), SubResource("Resource_6a1ct"), SubResource("Resource_xhrfq"), SubResource("Resource_2xesh"), SubResource("Resource_jexbj"), SubResource("Resource_0n3pv"), SubResource("Resource_0gito"), SubResource("Resource_aiee3"), SubResource("Resource_8ojta"), SubResource("Resource_kmcm6"), SubResource("Resource_8jwmc"), SubResource("Resource_ybi5g"), SubResource("Resource_f4wrh"), SubResource("Resource_smy15"), SubResource("Resource_70e66"), SubResource("Resource_6ydi7"), SubResource("Resource_c4qpb")])
+tiles = Array[ExtResource("2_tbgi4")]([SubResource("Resource_a82wo"), SubResource("Resource_gdvew"), SubResource("Resource_kjtvk"), SubResource("Resource_xrs0c"), SubResource("Resource_xljpf"), SubResource("Resource_j4bwh"), SubResource("Resource_ksmap"), SubResource("Resource_ygd8o"), SubResource("Resource_2s0kr"), SubResource("Resource_xaipn"), SubResource("Resource_ndrjj"), SubResource("Resource_ih3m7"), SubResource("Resource_11yus"), SubResource("Resource_b6ruc"), SubResource("Resource_r4ag1"), SubResource("Resource_4ue30"), SubResource("Resource_gr8w0"), SubResource("Resource_673bd"), SubResource("Resource_akjxb"), SubResource("Resource_73205"), SubResource("Resource_xmrkg"), SubResource("Resource_choun"), SubResource("Resource_ya4ey"), SubResource("Resource_eb6dy"), SubResource("Resource_trceg"), SubResource("Resource_engxj"), SubResource("Resource_raiwf"), SubResource("Resource_roort"), SubResource("Resource_gm02q"), SubResource("Resource_07pt3"), SubResource("Resource_37xlc"), SubResource("Resource_83607"), SubResource("Resource_a8y0u"), SubResource("Resource_jkv2x"), SubResource("Resource_jbj1t"), SubResource("Resource_muem4"), SubResource("Resource_eh25q"), SubResource("Resource_joh2r"), SubResource("Resource_yton5"), SubResource("Resource_4ahvx"), SubResource("Resource_2cr71"), SubResource("Resource_1hbcg"), SubResource("Resource_m4o51"), SubResource("Resource_dp3eg"), SubResource("Resource_0ld40"), SubResource("Resource_gqmmt"), SubResource("Resource_yc10j"), SubResource("Resource_683hg"), SubResource("Resource_ow8of"), SubResource("Resource_hj4tt"), SubResource("Resource_ruytr"), SubResource("Resource_wi1le"), SubResource("Resource_o7pr5"), SubResource("Resource_hyj2l"), SubResource("Resource_knlx5"), SubResource("Resource_pes4l"), SubResource("Resource_s5e0g"), SubResource("Resource_uya8e"), SubResource("Resource_2tiby"), SubResource("Resource_1m7le"), SubResource("Resource_d7502"), SubResource("Resource_jgau6"), SubResource("Resource_6a1ct"), SubResource("Resource_xhrfq"), SubResource("Resource_2xesh"), SubResource("Resource_jexbj"), SubResource("Resource_0n3pv"), SubResource("Resource_0gito"), SubResource("Resource_aiee3"), SubResource("Resource_8ojta"), SubResource("Resource_kmcm6"), SubResource("Resource_8jwmc"), SubResource("Resource_ybi5g"), SubResource("Resource_f4wrh"), SubResource("Resource_smy15"), SubResource("Resource_70e66"), SubResource("Resource_6ydi7"), SubResource("Resource_c4qpb")])
 metadata/_custom_type_script = "uid://rtj7ak6mwtr2"
 
 [node name="Ana" parent="." instance=ExtResource("1_o5qli")]
@@ -441,7 +515,8 @@ script = ExtResource("5_o6xl0")
 traits = Array[StringName]([&"obstinate"])
 
 [node name="Actor1" parent="." instance=ExtResource("1_o5qli")]
-position = Vector2(54, -32)
+modulate = Color(1, 0.368627, 1, 1)
+position = Vector2(78, -36)
 traits = Array[StringName]([&"trait"])
 
 [node name="Actor2" parent="." instance=ExtResource("1_o5qli")]
@@ -457,8 +532,8 @@ zoom = Vector2(4, 4)
 script = ExtResource("4_jyhfs")
 
 [node name="TileCondition" parent="." instance=ExtResource("8_tipki")]
-condition = SubResource("Resource_y57op")
+condition = SubResource("Resource_jscy8")
 
 [node name="Sprite2D" type="Sprite2D" parent="TileCondition"]
 scale = Vector2(0.05, 0.05)
-texture = ExtResource("9_85g3d")
+texture = ExtResource("10_choun")

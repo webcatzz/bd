@@ -8,10 +8,10 @@ var start: Vector2
 
 
 func push() -> Action:
-	var action := Action.new()
+	var action: Action = preload("res://scenes/actor/action.tscn").instantiate()
+	add_child(action)
 	action.start = at(-1).end if size() else start
 	actions.append(action)
-	add_child(action)
 	return action
 
 

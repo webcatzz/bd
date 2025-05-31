@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxh0bprcmjugt"]
+
+[ext_resource type="Script" uid="uid://pfpdupo75sni" path="res://scenes/actor/action.gd" id="1_q0thp"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_q0thp"]
+resource_local_to_scene = true
+
+[node name="Action" type="Area2D"]
+script = ExtResource("1_q0thp")
+metadata/_custom_type_script = "uid://pfpdupo75sni"
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_q0thp")

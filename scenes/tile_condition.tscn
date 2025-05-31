@@ -3,10 +3,9 @@
 [ext_resource type="Script" uid="uid://ws7diq42x041" path="res://scenes/tile_condition.gd" id="1_klcqf"]
 
 [node name="TileCondition" type="Area2D"]
-collision_layer = 2
 script = ExtResource("1_klcqf")
 
 [node name="Shape" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-2, -8.5, 12, -1.5, 2, 8.5, -12, 1.5)
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

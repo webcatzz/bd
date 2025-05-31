@@ -1,11 +1,11 @@
 class_name Action
-extends Node2D
+extends Area2D
 
 enum Type {MOVE, HIT}
 
-const MAX_DISTANCE: float = 3.5
+const MAX_LENGTH := 3.5
 const SPRITE_SIZE := Vector2i(8, 8)
-const DOT_SEPARATION: float = 12.0
+const DOT_SEPARATION := 12.0
 
 var start: Vector2 : set = _set_start
 var end: Vector2 : set = _set_end
@@ -14,6 +14,8 @@ var type: Type : set = _set_type
 var target: Vector2 : set = _set_target
 var item: Item : set = _set_item
 var is_possible: bool = true : set = _set_is_possible
+
+@onready var shape: SegmentShape2D = $Shape.shape
 
 
 # drawing
@@ -55,7 +57,7 @@ func set_alpha(value: float) -> void:
 # shake
 
 func set_target_shaking(value: bool) -> void:
-	var occupant := Game.battle.grid.at(target) as Actor
+	var occupant: Actor = Game.battle.grid.query_actor(target)
 	if occupant:
 		occupant.sprite.shake() if value else occupant.sprite.stop()
 
@@ -64,11 +66,13 @@ func set_target_shaking(value: bool) -> void:
 
 func _set_start(value: Vector2) -> void:
 	start = value
+	shape.a = start
 	queue_redraw()
 
 
 func _set_end(value: Vector2) -> void:
 	end = value
+	shape.b = end
 	queue_redraw()
 
 

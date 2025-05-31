@@ -1,5 +1,5 @@
 class_name Actor
-extends Area2D
+extends AnimatableBody2D
 
 @export var traits: Array[StringName]
 
@@ -27,14 +27,13 @@ func end_turn() -> void:
 		var action := path.pop(0)
 		action.queue_free()
 		await act(action)
-	
 	Game.battle.step()
 
 
 func act(action: Action) -> void:
 	move_to(action.end)
 	if action.target:
-		var target := Game.battle.grid.at(action.target) as Actor
+		var target: Actor = Game.battle.grid.query_actor(action.target)
 		if target: hit(target)
 	
 	await get_tree().create_timer(0.1).timeout
@@ -47,7 +46,7 @@ func move_to(point: Vector2) -> void:
 
 
 func can_stand(point: Vector2) -> bool:
-	return not Game.battle.grid.at(point)
+	return not Game.battle.grid.query_actor(point)
 
 
 # hitting

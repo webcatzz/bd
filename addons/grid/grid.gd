@@ -11,8 +11,6 @@ const RIGHT := Vector2(10.0, -10.0)
 @export var tile_set: TileSet
 @export_storage var tiles: Array[Tile]
 
-@export var debug: bool
-
 var _body: RID
 var _astar := AStar2D.new()
 
@@ -50,12 +48,13 @@ func set_tile(coords: Vector2i, source_id: int, tile_id: Vector2i) -> void:
 	tile.coords = coords
 	tile.source_id = source_id
 	tile.tile_id = tile_id
-	tile.draw(self)
 	_list_add_tile(tile)
+	_use_tile(tile)
+
 
 func remove_tile(coords: Vector2i) -> void:
 	if not has_tile(coords): return
-	get_tile(coords).kill()
+	_drop_tile(get_tile(coords))
 	_list_remove_tile(coords)
 
 
@@ -94,6 +93,48 @@ func _sort_coords(a: Vector2i, b: Vector2i) -> bool:
 	return a.y < b.y or a.y == b.y and a.x > b.x
 
 
+# tile servers
+
+func _use_tile(tile: Tile) -> void:
+	var source: TileSetAtlasSource = tile_set.get_source(tile.source_id)
+	var data: TileData = source.get_tile_data(tile.tile_id, 0)
+	var size: Vector2i = source.get_tile_size_in_atlas(tile.tile_id) * source.texture_region_size
+	var transform := Transform2D(0.0, coords_to_point(tile.coords))
+	# rendering
+	tile.canvas_item = RenderingServer.canvas_item_create()
+	RenderingServer.canvas_item_set_parent(tile.canvas_item, get_canvas_item())
+	RenderingServer.canvas_item_set_transform(tile.canvas_item, transform)
+	RenderingServer.canvas_item_set_z_index(tile.canvas_item, data.z_index)
+	RenderingServer.canvas_item_add_texture_rect_region(
+		tile.canvas_item,
+		Rect2(size * -0.5 - Vector2(data.texture_origin), size),
+		source.texture.get_rid(),
+		Rect2(tile.tile_id * source.texture_region_size, size)
+	)
+	# collision
+	for layer: int in tile_set.get_physics_layers_count():
+		for i: int in data.get_collision_polygons_count(layer):
+			var shape: RID = PhysicsServer2D.convex_polygon_shape_create()
+			PhysicsServer2D.shape_set_data(shape, data.get_collision_polygon_points(layer, i))
+			PhysicsServer2D.body_add_shape(_body, shape, transform)
+			tile.collision_shapes.append(shape)
+	# navigation
+	for layer: int in tile_set.get_navigation_layers_count():
+		if data.get_navigation_polygon(layer):
+			var region: RID = NavigationServer2D.region_create()
+			NavigationServer2D.region_set_navigation_polygon(region, data.get_navigation_polygon(layer))
+			NavigationServer2D.region_set_transform(region, transform)
+			tile.navigation_regions.append(region)
+
+
+func _drop_tile(tile: Tile) -> void:
+	RenderingServer.free_rid(tile.canvas_item)
+	while tile.collision_shapes.size():
+		PhysicsServer2D.free_rid(tile.collision_shapes.pop_back())
+	while tile.navigation_regions.size():
+		NavigationServer2D.free_rid(tile.navigation_regions.pop_back())
+
+
 # astar
 
 func set_point_open(point: Vector2, open: bool) -> void:
@@ -123,107 +164,63 @@ func _generate_astar() -> void:
 				_astar.connect_points(i, j)
 
 
-# physics
+# physics queries
 
-func at(point: Vector2) -> Area2D:
-	var params := PhysicsPointQueryParameters2D.new()
-	params.collide_with_bodies = false
-	params.collide_with_areas = true
-	params.collision_mask = 0b1
+func query(point: Vector2, params := PhysicsPointQueryParameters2D.new()) -> Array[Node2D]:
 	params.position = point
-	var collisions := get_world_2d().direct_space_state.intersect_point(params, 1)
-	return collisions.front().collider if collisions else null
-
-
-func ray(from: Vector2, to: Vector2) -> CollisionObject2D:
-	var params := PhysicsRayQueryParameters2D.create(from, to)
-	params.collide_with_areas = true
-	var collision := get_world_2d().direct_space_state.intersect_ray(params)
-	return collision.collider
-
-
-func ray_all(from: Vector2, to: Vector2) -> Array[CollisionObject2D]:
-	var colliders: Array[CollisionObject2D]
-	var params := PhysicsRayQueryParameters2D.create(from, to)
-	params.collide_with_areas = true
-	
-	while true:
-		var collision := get_world_2d().direct_space_state.intersect_ray(params)
-		if collision:
-			colliders.append(collision.collider)
-			params.exclude.append(collision.collider.get_rid())
-		else:
-			break
-	
+	var colliders: Array[Node2D]
+	for collision: Dictionary in get_world_2d().direct_space_state.intersect_point(params):
+		colliders.append(collision.collider)
 	return colliders
 
 
-# polygons
-
-func add_collision_polygon(points: PackedVector2Array, coords: Vector2i) -> void:
-	var shape: RID = PhysicsServer2D.convex_polygon_shape_create()
-	PhysicsServer2D.shape_set_data(shape, points)
-	PhysicsServer2D.body_add_shape(_body, shape, Transform2D(0.0, coords_to_point(coords)))
-
-
-func add_nav_polygon(nav_poly: NavigationPolygon, point: Vector2) -> void:
-	var nav_region := NavigationRegion2D.new()
-	nav_region.navigation_polygon = nav_poly
-	nav_region.position = point
-	add_child(nav_region)
+func query_actor(point: Vector2) -> Actor:
+	for collider: Node2D in query(point):
+		if collider is Actor:
+			return collider
+	return null
 
 
 # debug
 
-func draw_debug(renderer: Node2D) -> void:
-	var color: Color
-	# collision
-	color = Color(Color.RED, 0.5)
+func draw_collisions(renderer: Node2D) -> void:
+	var color: Color = ProjectSettings.get_setting("debug/shapes/collision/shape_color")
 	for i: int in PhysicsServer2D.body_get_shape_count(_body):
 		var shape: RID = PhysicsServer2D.body_get_shape(_body, i)
 		var points: PackedVector2Array
 		for point: Vector2 in PhysicsServer2D.shape_get_data(shape):
 			points.append(point + PhysicsServer2D.body_get_shape_transform(_body, i).origin)
+		renderer.draw_colored_polygon(points, color)
 		renderer.draw_polyline(points, color)
-		renderer.draw_colored_polygon(points, Color(color, 0.5))
-	# astar
-	color = Color(Color.GOLD, 0.5)
-	for id: int in _astar.get_point_ids():
-		var point: Vector2 = _astar.get_point_position(id)
-		renderer.draw_circle(point, 2.0, color, not _astar.is_point_disabled(id))
-		for connected_id: int in _astar.get_point_connections(id):
-			if id > connected_id:
-				renderer.draw_line(point, _astar.get_point_position(connected_id), Color(color, 0.5))
 
 
 # init
 
 func _ready() -> void:
-	if not Engine.is_editor_hint():
-		# collision
-		_body = PhysicsServer2D.body_create()
-		PhysicsServer2D.body_set_space(_body, get_world_2d().space)
-		PhysicsServer2D.body_set_mode(_body, PhysicsServer2D.BODY_MODE_STATIC)
+	# navigation
+	_generate_astar()
+	# debug
+	if get_tree().debug_collisions_hint:
+		var debug_renderer := Node2D.new()
+		debug_renderer.z_index = 1
+		debug_renderer.draw.connect(draw_collisions.bind(debug_renderer))
+		add_child(debug_renderer)
+
+
+func _enter_tree() -> void:
+	# collision
+	_body = PhysicsServer2D.body_create()
+	PhysicsServer2D.body_set_space(_body, get_world_2d().space)
+	PhysicsServer2D.body_set_mode(_body, PhysicsServer2D.BODY_MODE_STATIC)
+	PhysicsServer2D.body_attach_object_instance_id(_body, get_instance_id())
 	# tiles
 	for tile: Tile in tiles:
-		tile.draw(self)
-	if not Engine.is_editor_hint():
-		# navigation
-		_generate_astar()
-		# debug
-		if debug:
-			var debug_renderer := Node2D.new()
-			debug_renderer.z_index = 1
-			debug_renderer.draw.connect(draw_debug.bind(debug_renderer))
-			add_child(debug_renderer)
+		_use_tile(tile)
 
 
 func _exit_tree() -> void:
-	if not Engine.is_editor_hint():
-		# collision
-		for i: int in PhysicsServer2D.body_get_shape_count(_body):
-			PhysicsServer2D.free_rid(PhysicsServer2D.body_get_shape(_body, i))
-		PhysicsServer2D.free_rid(_body)
+	# collision
+	PhysicsServer2D.free_rid(_body)
 	# tiles
 	for tile: Tile in tiles:
-		tile.kill()
+		_drop_tile(tile)

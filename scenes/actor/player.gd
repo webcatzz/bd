@@ -47,14 +47,15 @@ func add_hover_action() -> void:
 
 
 func update_hover_action() -> void:
-	var cursor_point: Vector2 = hover_action.start + Grid.coords_to_point(Vector2(Grid.point_to_coords(get_global_mouse_position() - hover_action.start)).limit_length(Action.MAX_DISTANCE))
+	var cursor_point: Vector2 = hover_action.start + Grid.coords_to_point(Vector2(Grid.point_to_coords(get_global_mouse_position() - hover_action.start)).limit_length(Action.MAX_LENGTH))
 	match hover_action.type:
 		Action.Type.MOVE:
 			hover_action.end = cursor_point
 		Action.Type.HIT:
 			hover_action.target = cursor_point
 			hover_action.end = cursor_point + Grid.unit(hover_action.start - cursor_point)
-	hover_action.is_possible = can_stand(hover_action.end)
+	var bodies: Array[Node2D] = hover_action.get_overlapping_bodies()
+	hover_action.is_possible = bodies.is_empty() or bodies.size() == 1 and bodies.front() == self
 
 
 func commit_hover_action() -> void:
