@@ -9,3 +9,4 @@ extends Resource
 var canvas_item: RID
 var collision_shapes: Array[RID]
 var navigation_regions: Array[RID]
+var astar_id: int

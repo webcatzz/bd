@@ -125,6 +125,17 @@ func _use_tile(tile: Tile) -> void:
 			NavigationServer2D.region_set_navigation_polygon(region, data.get_navigation_polygon(layer))
 			NavigationServer2D.region_set_transform(region, transform)
 			tile.navigation_regions.append(region)
+	# astar
+	tile.astar_id = _astar.get_available_point_id()
+	_astar.add_point(tile.astar_id, transform.origin)
+	var max_action_length_squared: float = Action.MAX_LENGTH ** 2.0
+	for other: Tile in tiles:
+		if other == tile:
+			break
+		elif tile.coords.distance_squared_to(other.coords) < max_action_length_squared:
+			_astar.connect_points(tile.astar_id, other.astar_id)
+	await get_tree().process_frame
+	_astar.set_point_disabled(tile.astar_id, self in query(transform.origin))
 
 
 func _drop_tile(tile: Tile) -> void:
@@ -133,35 +144,13 @@ func _drop_tile(tile: Tile) -> void:
 		PhysicsServer2D.free_rid(tile.collision_shapes.pop_back())
 	while tile.navigation_regions.size():
 		NavigationServer2D.free_rid(tile.navigation_regions.pop_back())
+	_astar.remove_point(tile.astar_id)
 
 
 # astar
 
-func set_point_open(point: Vector2, open: bool) -> void:
-	_astar.set_point_disabled(_astar.get_closest_point(point, true), not open)
-
-
-func is_point_open(point: Vector2) -> bool:
-	return has_point(point) and not _astar.is_point_disabled(_astar.get_closest_point(point, true))
-
-
-func has_point(point: Vector2) -> bool:
-	return point == _astar.get_point_position(_astar.get_closest_point(point, true))
-
-
-func get_point_path(from: Vector2, to: Vector2, partial := false) -> PackedVector2Array:
+func get_point_path(from: Vector2, to: Vector2, partial: bool = false) -> PackedVector2Array:
 	return _astar.get_point_path(_astar.get_closest_point(from), _astar.get_closest_point(to), partial)
-
-
-func _generate_astar() -> void:
-	_astar.clear()
-	_astar.reserve_space(maxi(tiles.size(), _astar.get_point_capacity()))
-	var max_action_length_squared: float = Action.MAX_LENGTH ** 2.0
-	for i: int in tiles.size():
-		_astar.add_point(i, coords_to_point(tiles[i].coords))
-		for j: int in i:
-			if tiles[i].coords.distance_squared_to(tiles[j].coords) < max_action_length_squared:
-				_astar.connect_points(i, j)
 
 
 # physics queries
@@ -194,16 +183,30 @@ func draw_collisions(renderer: Node2D) -> void:
 		renderer.draw_polyline(points, color)
 
 
+func draw_navigation(renderer: Node2D) -> void:
+	var color := Color.GOLD
+	var radius: float = 2.0
+	for id: int in _astar.get_point_ids():
+		var point: Vector2 = _astar.get_point_position(id)
+		renderer.draw_circle(point, radius, color, not _astar.is_point_disabled(id))
+		for connected_id: int in _astar.get_point_connections(id):
+			if id > connected_id:
+				var connected_point: Vector2 = _astar.get_point_position(connected_id)
+				renderer.draw_line(point.move_toward(connected_point, radius), connected_point.move_toward(point, radius), Color(color, 0.5))
+
+
 # init
 
 func _ready() -> void:
-	# navigation
-	_generate_astar()
 	# debug
-	if get_tree().debug_collisions_hint:
+	if get_tree().debug_collisions_hint or get_tree().debug_navigation_hint:
 		var debug_renderer := Node2D.new()
 		debug_renderer.z_index = 1
-		debug_renderer.draw.connect(draw_collisions.bind(debug_renderer))
+		if get_tree().debug_collisions_hint:
+			debug_renderer.draw.connect(draw_collisions.bind(debug_renderer))
+		if get_tree().debug_navigation_hint:
+			debug_renderer.draw.connect(draw_navigation.bind(debug_renderer))
+		get_tree().process_frame.connect(debug_renderer.queue_redraw)
 		add_child(debug_renderer)
 
 
@@ -213,6 +216,8 @@ func _enter_tree() -> void:
 	PhysicsServer2D.body_set_space(_body, get_world_2d().space)
 	PhysicsServer2D.body_set_mode(_body, PhysicsServer2D.BODY_MODE_STATIC)
 	PhysicsServer2D.body_attach_object_instance_id(_body, get_instance_id())
+	# astar
+	_astar.reserve_space(maxi(tiles.size(), _astar.get_point_capacity()))
 	# tiles
 	for tile: Tile in tiles:
 		_use_tile(tile)

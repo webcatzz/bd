@@ -56,6 +56,7 @@ func hit(actor: Actor) -> void:
 
 
 func take_hit() -> void:
+	prints("ouch", traits)
 	remove_trait(get_trait_at(-1))
 	sprite.shake(1, 8.0, 0.025)
 

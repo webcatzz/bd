@@ -201,10 +201,11 @@ func move() -> void:
 # drawing
 
 func handle_draw(overlay: Control) -> void:
+	overlay.draw_string(ThemeDB.get_default_theme().default_font, Vector2(64.0, overlay.size.y - 64.0), str(mouse_rect.end), HORIZONTAL_ALIGNMENT_LEFT, 100.0, 24.0)
+	# staged coords
 	var canvas_scale: Vector2 = grid.get_viewport_transform().get_scale()
 	var canvas_offset: Vector2 = overlay.get_local_mouse_position() - grid.get_local_mouse_position() * canvas_scale
 	overlay.draw_set_transform(canvas_offset, 0.0, canvas_scale)
-	
 	for coords: Vector2i in staged_coords:
 		var point: Vector2 = Grid.coords_to_point(coords)
 		var half_x: Vector2 = Grid.RIGHT * 0.5
@@ -215,7 +216,6 @@ func handle_draw(overlay: Control) -> void:
 			point + half_x + half_y,
 			point - half_x + half_y,
 		], Color(1.0, 1.0, 1.0, 0.125))
-	
 	overlay.draw_set_transform(Vector2.ZERO)
 
 

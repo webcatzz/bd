@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://rtj7ak6mwtr2" path="res://addons/grid/grid.gd" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://6qcfn1jodkcj" path="res://scenes/actor/actor.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://bubu2diihaayr" path="res://scenes/main.gd" id="1_ya4ey"]
 [ext_resource type="Script" uid="uid://xpxy6vysmgjy" path="res://addons/grid/tile.gd" id="2_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://cv3os05q0xj0d" path="res://assets/tile.png" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://8n8jdffujf87" path="res://scenes/battle/battle.tscn" id="3_sugp2"]
@@ -24,6 +25,18 @@ texture_region_size = Vector2i(24, 21)
 tile_size = Vector2i(24, 21)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_o6xl0")
+
+[sub_resource type="Resource" id="Resource_pm3ni"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(0, -7)
+source_id = 0
+tile_id = Vector2i(0, 0)
+
+[sub_resource type="Resource" id="Resource_y6deb"]
+script = ExtResource("2_tbgi4")
+coords = Vector2i(2, -5)
+source_id = 0
+tile_id = Vector2i(0, 0)
 
 [sub_resource type="Resource" id="Resource_a82wo"]
 script = ExtResource("2_tbgi4")
@@ -475,24 +488,6 @@ coords = Vector2i(-1, 7)
 source_id = 0
 tile_id = Vector2i(0, 0)
 
-[sub_resource type="Resource" id="Resource_70e66"]
-script = ExtResource("2_tbgi4")
-coords = Vector2i(-30, 31)
-source_id = 0
-tile_id = Vector2i(0, 0)
-
-[sub_resource type="Resource" id="Resource_6ydi7"]
-script = ExtResource("2_tbgi4")
-coords = Vector2i(-31, 32)
-source_id = 0
-tile_id = Vector2i(0, 0)
-
-[sub_resource type="Resource" id="Resource_c4qpb"]
-script = ExtResource("2_tbgi4")
-coords = Vector2i(-31, 33)
-source_id = 0
-tile_id = Vector2i(0, 0)
-
 [sub_resource type="Resource" id="Resource_jscy8"]
 script = ExtResource("9_85g3d")
 id = &"doom"
@@ -501,12 +496,13 @@ strength = 1
 metadata/_custom_type_script = "uid://drrhlpyj8d7ul"
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_ya4ey")
 
 [node name="Grid" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("1_jyhfs")
 tile_set = SubResource("TileSet_tipki")
-tiles = Array[ExtResource("2_tbgi4")]([SubResource("Resource_a82wo"), SubResource("Resource_gdvew"), SubResource("Resource_kjtvk"), SubResource("Resource_xrs0c"), SubResource("Resource_xljpf"), SubResource("Resource_j4bwh"), SubResource("Resource_ksmap"), SubResource("Resource_ygd8o"), SubResource("Resource_2s0kr"), SubResource("Resource_xaipn"), SubResource("Resource_ndrjj"), SubResource("Resource_ih3m7"), SubResource("Resource_11yus"), SubResource("Resource_b6ruc"), SubResource("Resource_r4ag1"), SubResource("Resource_4ue30"), SubResource("Resource_gr8w0"), SubResource("Resource_673bd"), SubResource("Resource_akjxb"), SubResource("Resource_73205"), SubResource("Resource_xmrkg"), SubResource("Resource_choun"), SubResource("Resource_ya4ey"), SubResource("Resource_eb6dy"), SubResource("Resource_trceg"), SubResource("Resource_engxj"), SubResource("Resource_raiwf"), SubResource("Resource_roort"), SubResource("Resource_gm02q"), SubResource("Resource_07pt3"), SubResource("Resource_37xlc"), SubResource("Resource_83607"), SubResource("Resource_a8y0u"), SubResource("Resource_jkv2x"), SubResource("Resource_jbj1t"), SubResource("Resource_muem4"), SubResource("Resource_eh25q"), SubResource("Resource_joh2r"), SubResource("Resource_yton5"), SubResource("Resource_4ahvx"), SubResource("Resource_2cr71"), SubResource("Resource_1hbcg"), SubResource("Resource_m4o51"), SubResource("Resource_dp3eg"), SubResource("Resource_0ld40"), SubResource("Resource_gqmmt"), SubResource("Resource_yc10j"), SubResource("Resource_683hg"), SubResource("Resource_ow8of"), SubResource("Resource_hj4tt"), SubResource("Resource_ruytr"), SubResource("Resource_wi1le"), SubResource("Resource_o7pr5"), SubResource("Resource_hyj2l"), SubResource("Resource_knlx5"), SubResource("Resource_pes4l"), SubResource("Resource_s5e0g"), SubResource("Resource_uya8e"), SubResource("Resource_2tiby"), SubResource("Resource_1m7le"), SubResource("Resource_d7502"), SubResource("Resource_jgau6"), SubResource("Resource_6a1ct"), SubResource("Resource_xhrfq"), SubResource("Resource_2xesh"), SubResource("Resource_jexbj"), SubResource("Resource_0n3pv"), SubResource("Resource_0gito"), SubResource("Resource_aiee3"), SubResource("Resource_8ojta"), SubResource("Resource_kmcm6"), SubResource("Resource_8jwmc"), SubResource("Resource_ybi5g"), SubResource("Resource_f4wrh"), SubResource("Resource_smy15"), SubResource("Resource_70e66"), SubResource("Resource_6ydi7"), SubResource("Resource_c4qpb")])
+tiles = Array[ExtResource("2_tbgi4")]([SubResource("Resource_pm3ni"), SubResource("Resource_y6deb"), SubResource("Resource_a82wo"), SubResource("Resource_gdvew"), SubResource("Resource_kjtvk"), SubResource("Resource_xrs0c"), SubResource("Resource_xljpf"), SubResource("Resource_j4bwh"), SubResource("Resource_ksmap"), SubResource("Resource_ygd8o"), SubResource("Resource_2s0kr"), SubResource("Resource_xaipn"), SubResource("Resource_ndrjj"), SubResource("Resource_ih3m7"), SubResource("Resource_11yus"), SubResource("Resource_b6ruc"), SubResource("Resource_r4ag1"), SubResource("Resource_4ue30"), SubResource("Resource_gr8w0"), SubResource("Resource_673bd"), SubResource("Resource_akjxb"), SubResource("Resource_73205"), SubResource("Resource_xmrkg"), SubResource("Resource_choun"), SubResource("Resource_ya4ey"), SubResource("Resource_eb6dy"), SubResource("Resource_trceg"), SubResource("Resource_engxj"), SubResource("Resource_raiwf"), SubResource("Resource_roort"), SubResource("Resource_gm02q"), SubResource("Resource_07pt3"), SubResource("Resource_37xlc"), SubResource("Resource_83607"), SubResource("Resource_a8y0u"), SubResource("Resource_jkv2x"), SubResource("Resource_jbj1t"), SubResource("Resource_muem4"), SubResource("Resource_eh25q"), SubResource("Resource_joh2r"), SubResource("Resource_yton5"), SubResource("Resource_4ahvx"), SubResource("Resource_2cr71"), SubResource("Resource_1hbcg"), SubResource("Resource_m4o51"), SubResource("Resource_dp3eg"), SubResource("Resource_0ld40"), SubResource("Resource_gqmmt"), SubResource("Resource_yc10j"), SubResource("Resource_683hg"), SubResource("Resource_ow8of"), SubResource("Resource_hj4tt"), SubResource("Resource_ruytr"), SubResource("Resource_wi1le"), SubResource("Resource_o7pr5"), SubResource("Resource_hyj2l"), SubResource("Resource_knlx5"), SubResource("Resource_pes4l"), SubResource("Resource_s5e0g"), SubResource("Resource_uya8e"), SubResource("Resource_2tiby"), SubResource("Resource_1m7le"), SubResource("Resource_d7502"), SubResource("Resource_jgau6"), SubResource("Resource_6a1ct"), SubResource("Resource_xhrfq"), SubResource("Resource_2xesh"), SubResource("Resource_jexbj"), SubResource("Resource_0n3pv"), SubResource("Resource_0gito"), SubResource("Resource_aiee3"), SubResource("Resource_8ojta"), SubResource("Resource_kmcm6"), SubResource("Resource_8jwmc"), SubResource("Resource_ybi5g"), SubResource("Resource_f4wrh"), SubResource("Resource_smy15")])
 metadata/_custom_type_script = "uid://rtj7ak6mwtr2"
 
 [node name="Ana" parent="." instance=ExtResource("1_o5qli")]
