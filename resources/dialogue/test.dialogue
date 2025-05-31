@@ -32,7 +32,8 @@ Precisely one hundred and two kilometers directly above your head: a shooting st
 
 as COWARD
 Could you stop that?!
-do fifer_put_pistol_away
+
+do add_line("temp for logic (fifer_put_pistol_away)")
 
 as COWARD
 They should be here. It’s the day of our duel. Why wouldn't they be here? Why wouldn't he be here?
@@ -41,24 +42,24 @@ as FIFER
 I have no idea.
 
 as COWARD
-do coward_grovel
+do add_line("temp for logic (coward_grovel)")
 This is horrible, oh, why- how could this happen to me?! I don’t want to shoot him... I don't want to die...
 
 as FIFER
 ...Some time ago, I read a book about a Japanese warrior... a samurai, who would often turn up late to his own duels.
-do coward_sit_down_next_to_fifer
+do add_line("temp for logic (coward_sit_down_next_to_fifer)")
 The primary reason he made use of this strategy was that it forced his opponent to wait and contemplate their own death.
 
 as COWARD
-do coward_hesitates
+do add_line("temp for logic (coward_hesitates)")
 And that is supposed to comfort me?!
 
 as FIFER
-do fifer_roll_eyes
+do add_line("temp for logic (fifer_roll_eyes)")
 No, I just thought it was interesting.
 
 as COWARD
-do coward_shoot_fifer
+do add_line("temp for logic (coward_shoot_fifer)")
 Bitch
 
 => intro
@@ -70,7 +71,7 @@ Bitch
 as SEAWORN ROOM
 Dim light pries through warped window-glass. You are anchored in an ocean of its own sort: books, compact discs, records, paper scraps, computer parts, and other paraphernalia bury every inch of the room. It is a well-cared for collection.
 
-if player_name == "June"
+if Save.player_name == "June"
 
 	You feel at home.
 

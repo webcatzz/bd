@@ -1,3 +1,4 @@
+class_name Dialogue
 extends Control
 
 const START_DIALOGUE := "# "
@@ -8,7 +9,6 @@ const SWITCH_SPEAKER := "as "
 const OPTION := "> "
 const EXECUTE := "do "
 const EVALUATE := "if "
-#const EVALUTE := "else"
 
 const INDENT := "\t"
 const IGNORE := "x "
@@ -29,7 +29,7 @@ var stack: PackedInt32Array
 # loop
 
 func start() -> void:
-	file = FileAccess.open("res://resources/dialogue/%s.txt" % filename, FileAccess.READ)
+	file = FileAccess.open("res://resources/dialogue/%s.dialogue" % filename, FileAccess.READ)
 	if key:
 		seek(key)
 	else:
@@ -164,5 +164,5 @@ func reset_indent() -> void:
 
 func run(code: String) -> Variant:
 	var expr := Expression.new()
-	expr.parse(code)
-	return expr.execute([], Save)
+	expr.parse(code, ["Game", "Save"])
+	return expr.execute([Game, Save], self)
