@@ -51,5 +51,4 @@ auto_height = true
 metadata/_tab_index = 1
 
 [connection signal="ready" from="." to="." method="start"]
-[connection signal="tab_changed" from="VBox/Controls" to="." method="_on_control_changed" unbinds=1]
 [connection signal="pressed" from="VBox/Controls/Continue" to="." method="step"]

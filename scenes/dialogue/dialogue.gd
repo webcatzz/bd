@@ -125,6 +125,7 @@ func add_speaker_name(text: String) -> void:
 
 func show_button() -> void:
 	controls.current_tab = 0
+	focus_controls()
 
 
 func show_options(options: Dictionary[String, int]) -> void:
@@ -132,9 +133,10 @@ func show_options(options: Dictionary[String, int]) -> void:
 	for option: String in options:
 		option_list.add_item(option)
 	controls.current_tab = 1
+	focus_controls()
 
 
-func _on_control_changed() -> void:
+func focus_controls() -> void:
 	controls.get_current_tab_control().grab_focus()
 
 
