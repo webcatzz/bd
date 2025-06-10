@@ -25,8 +25,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		var menu: RadialMenu = Game.cursor.open_menu()
 		menu.add_item("Cross", Lib.get_icon(Vector2i(1, 0)), _set_action_mode.bind(Action.Type.MOVE))
 		menu.add_item("Strike", Lib.get_icon((Vector2i(2, 0))), _set_action_mode.bind(Action.Type.HIT))
-		menu.add_item("Clear path", Lib.get_icon((Vector2i(3, 0))), clear_path)
-		menu.add_item("End turn", Lib.get_icon((Vector2i(4, 0))), end_turn)
+		menu.add_item("Clear path", Lib.get_icon((Vector2i(3, 0))), clear_path, path.size() <= 1)
+		menu.add_item("End turn", Lib.get_icon((Vector2i(4, 0))), end_turn, path.size() <= 1)
 	elif hover_action:
 		if event is InputEventMouseMotion:
 			update_hover_action()
