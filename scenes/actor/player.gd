@@ -21,13 +21,12 @@ func end_turn() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
-		end_turn()
-	elif event.is_action_pressed("right_click"):
+	if event.is_action_pressed("right_click"):
 		var menu: RadialMenu = Game.cursor.open_menu()
-		menu.add_item("Add stop", Lib.get_icon(Vector2i(1, 0)), _set_action_mode.bind(Action.Type.MOVE))
-		menu.add_item("Add action", Lib.get_icon((Vector2i(2, 0))), _set_action_mode.bind(Action.Type.HIT))
+		menu.add_item("Cross", Lib.get_icon(Vector2i(1, 0)), _set_action_mode.bind(Action.Type.MOVE))
+		menu.add_item("Strike", Lib.get_icon((Vector2i(2, 0))), _set_action_mode.bind(Action.Type.HIT))
 		menu.add_item("Clear path", Lib.get_icon((Vector2i(3, 0))), clear_path)
+		menu.add_item("End turn", Lib.get_icon((Vector2i(4, 0))), end_turn)
 	elif hover_action:
 		if event is InputEventMouseMotion:
 			update_hover_action()
