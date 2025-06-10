@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cl8udb8tbvjk7"]
+
+[ext_resource type="Script" uid="uid://ckag5y6dkitgl" path="res://scenes/ui/radial_menu/radial_menu_item.gd" id="1_btl36"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bb7am"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btl36"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jj511"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[node name="RadialMenuItem" type="Button"]
+custom_minimum_size = Vector2(24, 24)
+offset_right = 24.0
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/focus = SubResource("StyleBoxFlat_bb7am")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btl36")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jj511")
+theme_override_styles/normal = SubResource("StyleBoxFlat_jj511")
+icon_alignment = 1
+script = ExtResource("1_btl36")

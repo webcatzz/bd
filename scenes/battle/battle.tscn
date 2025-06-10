@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://8n8jdffujf87"]
 
 [ext_resource type="Script" uid="uid://o4bcev7imiad" path="res://scenes/battle/battle.gd" id="1_dn72j"]
-[ext_resource type="Script" uid="uid://c42cplvlgun4i" path="res://scenes/battle/ui.gd" id="2_ffvsa"]
+[ext_resource type="Script" uid="uid://c42cplvlgun4i" path="res://scenes/ui/battle/ui.gd" id="2_ffvsa"]
 
 [node name="Battle" type="Node"]
 script = ExtResource("1_dn72j")
@@ -11,7 +11,7 @@ metadata/_custom_type_script = "uid://o4bcev7imiad"
 scale = Vector2(3, 3)
 transform = Transform2D(3, 0, 0, 3, 0, 0)
 script = ExtResource("2_ffvsa")
-order = NodePath("Control/Margins/VBoxContainer/Order")
+order = NodePath("Control/Margins/Order/Actors")
 
 [node name="Control" type="Control" parent="UI"]
 layout_mode = 3
@@ -33,13 +33,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/Margins"]
+[node name="Order" type="VBoxContainer" parent="UI/Control/Margins"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="UI/Control/Margins/VBoxContainer"]
+[node name="Label" type="Label" parent="UI/Control/Margins/Order"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -49,7 +49,7 @@ theme_override_constants/shadow_offset_y = 3
 theme_override_font_sizes/font_size = 16
 text = "ORDER"
 
-[node name="Order" type="Label" parent="UI/Control/Margins/VBoxContainer"]
+[node name="Actors" type="Label" parent="UI/Control/Margins/Order"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -61,6 +61,13 @@ text = "actor 1
 actor 2
 > ana
 actor 3"
+
+[node name="Action" type="Label" parent="UI/Control/Margins"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "cross
+strike"
 
 [connection signal="continued" from="." to="UI" method="_on_battle_continued"]
 [connection signal="ended" from="." to="UI" method="hide"]

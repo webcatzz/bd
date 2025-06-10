@@ -24,8 +24,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		end_turn()
 	elif event.is_action_pressed("right_click"):
-		path.clear()
-		add_hover_action()
+		var menu: RadialMenu = Game.cursor.open_menu()
+		menu.add_item("Add stop", Lib.get_icon(Vector2i(1, 0)), _set_action_mode.bind(Action.Type.MOVE))
+		menu.add_item("Add action", Lib.get_icon((Vector2i(2, 0))), _set_action_mode.bind(Action.Type.HIT))
+		menu.add_item("Clear path", Lib.get_icon((Vector2i(3, 0))), clear_path)
 	elif hover_action:
 		if event is InputEventMouseMotion:
 			update_hover_action()
@@ -54,8 +56,8 @@ func update_hover_action() -> void:
 		Action.Type.HIT:
 			hover_action.target = cursor_point
 			hover_action.end = cursor_point + Grid.unit(hover_action.start - cursor_point)
-	var bodies: Array[Node2D] = hover_action.get_overlapping_bodies()
-	hover_action.is_possible = bodies.is_empty() or bodies.size() == 1 and bodies.front() == self
+	hover_action.force_raycast_update()
+	hover_action.is_possible = not hover_action.is_colliding()
 
 
 func commit_hover_action() -> void:
@@ -64,6 +66,11 @@ func commit_hover_action() -> void:
 	hover_action = null
 	if path.size() < path.max_size:
 		add_hover_action()
+
+
+func clear_path() -> void:
+	path.clear()
+	add_hover_action()
 
 
 func _set_action_mode(value: Action.Type) -> void:

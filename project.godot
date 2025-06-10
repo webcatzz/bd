@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Lib="*res://scenes/autoloads/lib.gd"
 Save="*res://scenes/autoloads/save.gd"
 Game="*res://scenes/autoloads/game.tscn"
 

@@ -1,4 +1,12 @@
+class_name Cursor
 extends Sprite2D
+
+
+func open_menu() -> RadialMenu:
+	var menu: RadialMenu = preload("res://scenes/ui/radial_menu/radial_menu.tscn").instantiate()
+	menu.move_to(position)
+	get_parent().add_child(menu)
+	return menu
 
 
 func _input(event: InputEvent) -> void:

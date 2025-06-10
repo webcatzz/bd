@@ -102,15 +102,7 @@ func _use_tile(tile: Tile) -> void:
 	var transform := Transform2D(0.0, coords_to_point(tile.coords))
 	# rendering
 	tile.canvas_item = RenderingServer.canvas_item_create()
-	RenderingServer.canvas_item_set_parent(tile.canvas_item, get_canvas_item())
-	RenderingServer.canvas_item_set_transform(tile.canvas_item, transform)
-	RenderingServer.canvas_item_set_z_index(tile.canvas_item, data.z_index)
-	RenderingServer.canvas_item_add_texture_rect_region(
-		tile.canvas_item,
-		Rect2(size * -0.5 - Vector2(data.texture_origin), size),
-		source.texture.get_rid(),
-		Rect2(tile.tile_id * source.texture_region_size, size)
-	)
+	_redraw_tile(tile)
 	# collision
 	for layer: int in tile_set.get_physics_layers_count():
 		for i: int in data.get_collision_polygons_count(layer):
@@ -136,6 +128,27 @@ func _use_tile(tile: Tile) -> void:
 			_astar.connect_points(tile.astar_id, other.astar_id)
 	await get_tree().process_frame
 	_astar.set_point_disabled(tile.astar_id, self in query(transform.origin))
+
+
+func _redraw_tile(tile: Tile) -> void:
+	var source: TileSetAtlasSource = tile_set.get_source(tile.source_id)
+	var data: TileData = source.get_tile_data(tile.tile_id, 0)
+	var size: Vector2i = source.get_tile_size_in_atlas(tile.tile_id) * source.texture_region_size
+	RenderingServer.canvas_item_clear(tile.canvas_item)
+	RenderingServer.canvas_item_set_parent(tile.canvas_item, get_canvas_item())
+	RenderingServer.canvas_item_set_transform(tile.canvas_item, Transform2D(0.0, coords_to_point(tile.coords)))
+	RenderingServer.canvas_item_set_z_index(tile.canvas_item, data.z_index)
+	RenderingServer.canvas_item_add_texture_rect_region(
+		tile.canvas_item,
+		Rect2(size * -0.5 - Vector2(data.texture_origin), size),
+		source.texture.get_rid(),
+		Rect2(tile.tile_id * source.texture_region_size, size)
+	)
+
+
+func _redraw_all_tiles() -> void:
+	for tile: Tile in tiles:
+		_redraw_tile(tile)
 
 
 func _drop_tile(tile: Tile) -> void:
@@ -198,6 +211,7 @@ func draw_navigation(renderer: Node2D) -> void:
 # init
 
 func _ready() -> void:
+	tile_set.changed.connect(_redraw_all_tiles)
 	# debug
 	if get_tree().debug_collisions_hint or get_tree().debug_navigation_hint:
 		var debug_renderer := Node2D.new()

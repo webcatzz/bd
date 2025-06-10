@@ -1,5 +1,5 @@
 class_name Action
-extends Area2D
+extends RayCast2D
 
 enum Type {MOVE, HIT}
 
@@ -15,12 +15,11 @@ var target: Vector2 : set = _set_target
 var item: Item : set = _set_item
 var is_possible: bool = true : set = _set_is_possible
 
-@onready var shape: SegmentShape2D = $Shape.shape
-
 
 # drawing
 
 func _draw() -> void:
+	draw_set_transform(-start)
 	_draw_dots()
 	if is_possible:
 		_draw_sprite(Vector2i(1, 0), end)
@@ -66,13 +65,14 @@ func set_target_shaking(value: bool) -> void:
 
 func _set_start(value: Vector2) -> void:
 	start = value
-	shape.a = start
+	position = start
+	target_position = end - start
 	queue_redraw()
 
 
 func _set_end(value: Vector2) -> void:
 	end = value
-	shape.b = end
+	target_position = end - start
 	queue_redraw()
 
 

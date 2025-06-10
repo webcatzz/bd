@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbmlmdeekwvsh"]
+
+[ext_resource type="Script" uid="uid://dcnemdrllfxvr" path="res://scenes/ui/radial_menu/radial_menu.gd" id="1_mgx87"]
+[ext_resource type="PackedScene" uid="uid://cl8udb8tbvjk7" path="res://scenes/ui/radial_menu/radial_menu_item.tscn" id="2_hrjj1"]
+[ext_resource type="Texture2D" uid="uid://jjmovg6q1ye8" path="res://assets/icons.png" id="3_j40ro"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42t7p"]
+atlas = ExtResource("3_j40ro")
+region = Rect2(0, 0, 8, 8)
+
+[node name="RadialMenu" type="Container"]
+custom_minimum_size = Vector2(100, 100)
+offset_right = 80.0
+offset_bottom = 80.0
+mouse_filter = 0
+script = ExtResource("1_mgx87")
+metadata/_custom_type_script = "uid://dcnemdrllfxvr"
+
+[node name="Close" parent="." instance=ExtResource("2_hrjj1")]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+icon = SubResource("AtlasTexture_42t7p")
+radius = 10.0
+
+[connection signal="pressed" from="Close" to="." method="queue_free"]
