@@ -33,10 +33,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			update_hover_action()
 		elif event.is_action_pressed("click"):
 			commit_hover_action()
-		elif event.is_action_pressed("mode_move"):
-			action_mode = Action.Type.MOVE
-		elif event.is_action_pressed("mode_hit"):
-			action_mode = Action.Type.HIT
 
 
 # hover action
