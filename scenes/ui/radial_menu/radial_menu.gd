@@ -16,12 +16,12 @@ func move_to(point: Vector2) -> void:
 
 # items
 
-func add_item(text: String, icon: Texture2D, callback: Callable = print.bind(text), disabled: bool = false) -> void:
+func add_item(text: String, icon: Texture2D, callback: Callable = print.bind(text), enabled: bool = true) -> void:
 	var item: Button = preload("res://scenes/ui/radial_menu/radial_menu_item.tscn").instantiate()
 	item.position = (size - item.size) * 0.5
-	#item.text = text
+	item.tooltip_text = text
 	item.icon = icon
-	item.disabled = disabled
+	item.disabled = not enabled
 	item.pressed.connect(callback)
 	item.pressed.connect(queue_free)
 	add_child(item)

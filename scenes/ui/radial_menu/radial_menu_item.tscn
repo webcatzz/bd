@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cl8udb8tbvjk7"]
+[gd_scene load_steps=6 format=3 uid="uid://cl8udb8tbvjk7"]
 
 [ext_resource type="Script" uid="uid://ckag5y6dkitgl" path="res://scenes/ui/radial_menu/radial_menu_item.gd" id="1_btl36"]
 
@@ -13,6 +13,13 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dk7g"]
+bg_color = Color(0.25, 0.25, 0.25, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btl36"]
 bg_color = Color(0.501961, 0.501961, 0.501961, 1)
@@ -34,6 +41,7 @@ offset_right = 24.0
 offset_bottom = 24.0
 theme_override_font_sizes/font_size = 10
 theme_override_styles/focus = SubResource("StyleBoxFlat_bb7am")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_2dk7g")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btl36")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_jj511")
 theme_override_styles/normal = SubResource("StyleBoxFlat_jj511")
